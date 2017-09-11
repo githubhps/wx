@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xmlns:jpa="http://www.springframework.org/schema/data/jpa"   
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+         http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa 
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+         http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	
+		
+		
+	 <!-- 
+	 	<mvc:default-servlet-handler/> 
+	 	将在 SpringMVC 上下文中定义一个 DefaultServletHttpRequestHandler，
+	 	它会对进入 DispatcherServlet 的 请求进行筛查，如果发现是没有经过映射的请求，
+	 	就将该请求交由 WEB 应用服务器默认的 Servlet 处理，如果不是静态资源的请求，才由 DispatcherServlet 继续处理	 
+	  -->
+	 <mvc:default-servlet-handler/>
+	 <!-- 让注解重新启动  @RequestMapping-->
+	 <mvc:annotation-driven></mvc:annotation-driven>
+	 
+</beans>

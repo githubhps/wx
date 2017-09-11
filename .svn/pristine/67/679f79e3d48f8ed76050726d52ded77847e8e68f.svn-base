@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="3.0"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+
+	<!-- SpringMVC编码格式处理UTF-8 -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 监听器  用于微信开发access_token使用 -->
+	<listener>
+		<listener-class>com.pro.weixin.api.accessToken.AccessTokenListener</listener-class>
+	</listener>
+	<!--
+	<servlet>
+		<servlet-name>weixinCoreServlet</servlet-name>
+		<servlet-class>com.pro.weixin.servlet.CoreServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>weixinCoreServlet</servlet-name>
+		<url-pattern>/guoweixin</url-pattern>
+	</servlet-mapping>
+	 -->
+
+
+	<!-- SpringMVC核心Servlet DispatcherServlet -->
+	<!-- SpringMVC控制 -->
+	<servlet>
+		<servlet-name>springMvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 指定默认Spring核心配置文件 如果没有指定，会默认到WEB-INF/<servlet-name>-servlet.xml -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:applicationContext.xml,classpath:spring_mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springMvc</servlet-name>
+		<!-- /* 会拦截所有的请求 包括.jsp / 会拦截所有的请求 除了（.jsp) -->
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- HTTP只支持get和post 请求， 如果想让其支持put 和delete请求，需要加一个Hidden来进行处理 -->
+	<filter>
+		<filter-name>hiddenMethod</filter-name>
+		<filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>hiddenMethod</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	
+</web-app>

@@ -1,0 +1,217 @@
+package com.pro.weixin.main;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.pro.weixin.pojo.AccessToken;
+import com.pro.weixin.pojo.Button;
+import com.pro.weixin.pojo.CommonButton;
+import com.pro.weixin.pojo.ComplexButton;
+import com.pro.weixin.pojo.Menu;
+import com.pro.weixin.pojo.ViewButton;
+import com.pro.weixin.util.WeixinUtil;
+
+/**
+ * 菜单管理器类
+ * 
+ */
+public class MenuManager {
+	private static Logger log = LoggerFactory.getLogger(MenuManager.class);
+/***
+ * 自定义菜单的创建步骤
+	1、找到AppId和AppSecret。自定义菜单申请成功后，在“高级功能”-“开发模式”-“接口配置信息”的最后两项就是；
+	2、根据AppId和AppSecret，以https get方式获取访问特殊接口所必须的凭证access_token；
+	3、根据access_token，将json格式的菜单数据通过https post方式提交。
+
+ */
+	
+	/**大连为生活
+	 * AppId wx48aea262c7e90505
+		AppSecret 7bdb19ae6060e73f84ffce36ebab3c54
+		测试：
+		wxe545a87dd58d472c
+		8e7b1ee0710dbe4ba9fbcd93dc2321cf
+	 */
+	public final static String REAL_URL="http://weixinguo.xicp.net/maven_weixin/"; //个人花生壳
+	//public final static String REAL_URL = "http://wxmobsa.yidatec.com/weixin/"; //正式号服务器	
+	
+	public final static String appId="wxe545a87dd58d472c";
+	public final static String appSecret = "8e7b1ee0710dbe4ba9fbcd93dc2321cf";
+	
+	public static void resultMenu(){
+		// 调用接口获取access_token
+		AccessToken at = WeixinUtil.getAccessToken(appId, appSecret);
+
+		if (null != at) {
+			// 调用接口创建菜单
+			int result = WeixinUtil.createMenu(getMenu(), at.getToken());
+
+			// 判断菜单创建结果
+			if (0 == result)
+				log.info("菜单创建成功！");
+			else
+				log.info("菜单创建失败，错误码：" + result);
+		}
+	}
+	
+	public static void main(String[] args) {
+		// 第三方用户唯一凭证
+		String appId = MenuManager.appId;
+		// 第三方用户唯一凭证密钥
+		String appSecret = MenuManager.appSecret;
+		// 调用接口获取access_token
+		AccessToken at = WeixinUtil.getAccessToken(appId, appSecret);
+
+		if (null != at) {
+			// 调用接口创建菜单
+			int result = WeixinUtil.createMenu(getMenu(),at.getToken());
+
+			// 判断菜单创建结果
+			if (0 == result)
+				log.info("菜单创建成功！");
+			else
+				log.info("菜单创建失败，错误码：" + result);
+		}
+	}
+
+	/**
+	 * 组装菜单数据
+	 * 
+	 * @return
+	 */
+	private static Menu getMenu() {
+//		CommonButton btn11 = new CommonButton();
+//		btn11.setName("天气预报");
+//		btn11.setType("click");
+//		btn11.setKey("11");
+//
+////		CommonButton btn12 = new CommonButton();
+////		btn12.setName("车辆违章查询");
+////		btn12.setType("click");
+////		btn12.setKey("12");
+//		
+//		ViewButton btn12 = new ViewButton();
+//		btn12.setName("车辆违章查询");
+//		btn12.setType("view");
+//		btn12.setUrl(MenuManager.REAL_URL+"pages/rulesBus/rulesBusList.jsp");
+//
+////		CommonButton btn13 = new CommonButton();
+////		btn13.setName("周边搜索");
+////		btn13.setType("click");
+////		btn13.setKey("13");
+//		ViewButton btn13 = new ViewButton();
+//		btn13.setName("公交周边搜索");
+//		btn13.setType("view");
+//		btn13.setUrl("http://map.baidu.com/");
+//		
+//		
+//		ViewButton btn36 = new ViewButton();
+//		btn36.setName("话费任意查");
+//		btn36.setType("view");
+//		btn36.setUrl(MenuManager.REAL_URL+"pages/phoneSearch/phoneSearch.jsp");
+//		
+//		
+//		CommonButton btn14 = new CommonButton();
+//		btn14.setName("图文消息练习");//
+//		btn14.setType("click");
+//		btn14.setKey("14");
+//		
+//		CommonButton btn15 = new CommonButton();
+//		btn15.setName("多图文消息");
+//		btn15.setType("click");
+//		btn15.setKey("15");
+//
+//		
+//		
+//		CommonButton btn21 = new CommonButton();
+//		btn21.setName("每天十幅图");
+//		btn21.setType("click");
+//		btn21.setKey("21");
+//
+//		ViewButton btn22 = new ViewButton();
+//		btn22.setName("四六级查询");
+//		btn22.setType("view");
+//		btn22.setUrl(MenuManager.REAL_URL+"pages/cetSearch/cetSearch.jsp");
+//
+//
+//		ViewButton btn34 = new ViewButton();
+//		btn34.setName("使用帮助");
+//		btn34.setType("view");
+//		//btn34.setUrl("http://wsq.qq.com/follow/button?sId=169099006"); 
+//		
+//		btn34.setUrl("http://s.p.qq.com/pub/jump?d=AAARpOzP"); 
+//		ViewButton btn35 = new ViewButton();
+//		btn35.setName("互动社区");
+//		btn35.setType("view");
+//		btn35.setUrl("http://qiniu.happyruru.com/jssdk_test.html");
+		
+		ViewButton btn50 = new ViewButton();
+		btn50.setName("会议发布");
+		btn50.setType("view");
+		btn50.setUrl(REAL_URL+"wx/meeting/pub");
+		
+		ViewButton btn51 = new ViewButton();
+		btn51.setName("会议抢单");
+		btn51.setType("view");
+		btn51.setUrl(REAL_URL+"wx/meeting/grab");
+//-------------------------------------------------------
+		CommonButton btn60 = new CommonButton();
+		btn60.setName("昨日日报");
+		btn60.setType("click");
+		btn60.setKey("60");
+		
+		ViewButton btn61 = new ViewButton();
+		btn61.setName("已抢单会议");
+		btn61.setType("view");
+		btn61.setUrl("https://www.baidu.com/");
+		
+		ViewButton btn62 = new ViewButton();
+		btn62.setName("召开排行榜");
+		btn62.setType("view");
+		btn62.setUrl("https://www.baidu.com/");
+//------------------------------------------------------------		
+		CommonButton btn70 = new CommonButton(); //返回图文消息
+		btn70.setName("使用规则");
+		btn70.setType("click");
+		btn70.setKey("70");
+		
+		ViewButton btn71 = new ViewButton();
+		btn71.setName("个人中心");
+		btn71.setType("view");
+		btn71.setUrl(REAL_URL+"wx/meeting/info");
+		
+		CommonButton btn72 = new CommonButton(); //返回图文消息
+		btn72.setName("版本信息");
+		btn72.setType("click");
+		btn72.setKey("72");
+		
+		CommonButton btn73 = new CommonButton(); //返回图文消息
+		btn73.setName("联系我们");
+		btn73.setType("click");
+		btn73.setKey("73");
+		//###############################################一级子菜单
+		ComplexButton mainBtn1 = new ComplexButton();
+		mainBtn1.setName("会议");
+		mainBtn1.setSub_button(new Button[] { btn50, btn51});
+
+		ComplexButton mainBtn2 = new ComplexButton();
+		mainBtn2.setName("公告板");  // 
+		mainBtn2.setSub_button(new Button[] { btn60,btn61,btn62});
+
+		ComplexButton mainBtn3 = new ComplexButton();
+		mainBtn3.setName("系统消息");// btn31, btn32, btn33,
+		mainBtn3.setSub_button(new Button[] {btn70,btn71,btn72,btn73 });
+
+		/**
+		 * 这是公众号目前的菜单结构，每个一级菜单都有二级菜单项<br>
+		 * 
+		 * 在某个一级菜单下没有二级菜单的情况，menu该如何定义呢？<br>
+		 * 比如，第三个一级菜单项不是“更多体验”，而直接是“幽默笑话”，那么menu应该这样定义：<br>
+		 * menu.setButton(new Button[] { mainBtn1, mainBtn2, btn33 });
+		 */
+		Menu menu = new Menu();
+		menu.setButton(new Button[] { mainBtn1, mainBtn2, mainBtn3 });
+
+		return menu;
+	}
+}
